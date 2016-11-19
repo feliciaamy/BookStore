@@ -1,0 +1,208 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="#272727"
+    tools:context="com.example.user.smartfridge.Input_activity">
+
+    <!-- The primary full-screen view. This can be replaced with whatever view
+         is needed to present your content, e.g. VideoView, SurfaceView,
+         TextureView, etc. -->
+
+    <!-- This FrameLayout insets its children based on system windows using
+         android:fitsSystemWindows. -->
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        android:background="#272727"
+        android:id="@+id/l"
+        android:layout_gravity="center_vertical"
+        android:screenOrientation="landscape">
+
+        <LinearLayout android:id="@+id/fullscreen_content_controls" style="?metaButtonBarStyle"
+            android:layout_width="match_parent" android:layout_height="320dp"
+            android:layout_gravity="center_horizontal|bottom|left|right|top"
+            android:background="@color/black_overlay" android:orientation="horizontal"
+            tools:ignore="UselessParent">
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#272727">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageButton
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:id="@+id/addImage"
+                        android:src="@drawable/plus1"
+                        android:scaleType="fitXY"
+                        android:layout_marginTop="35dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="42dp"
+                        android:layout_marginStart="42dp"
+                        android:onClick="selectImage" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Add picture of the food"
+                        android:id="@+id/textView2"
+                        android:layout_gravity="bottom"
+                        android:textAlignment="center"
+                        android:singleLine="false"
+                        android:layout_below="@+id/addImage"
+                        android:layout_alignRight="@+id/addImage"
+                        android:layout_alignEnd="@+id/addImage"
+                        android:layout_alignLeft="@+id/addImage"
+                        android:layout_alignStart="@+id/addImage"
+                        android:gravity="center"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Name:"
+                        android:id="@+id/textView3"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:layout_alignTop="@+id/addImage"
+                        android:layout_centerHorizontal="true"
+                        android:textColor="@android:color/background_light" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Type:"
+                        android:id="@+id/textView4"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:layout_below="@+id/textView3"
+                        android:layout_alignLeft="@+id/textView3"
+                        android:layout_alignStart="@+id/textView3"
+                        android:layout_marginTop="30dp"
+                        android:textColor="#ffffff" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="Expiry Date:"
+                        android:id="@+id/textView5"
+                        android:textSize="30dp"
+                        android:textStyle="bold"
+                        android:layout_above="@+id/editDate"
+                        android:layout_alignLeft="@+id/textView4"
+                        android:layout_alignStart="@+id/textView4"
+                        android:textColor="#ffffff" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/date"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginStart="27dp"
+                        android:layout_above="@+id/textView2"
+                        android:layout_alignLeft="@+id/textView5"
+                        android:layout_alignStart="@+id/textView5"
+                        android:checked="false"
+                        android:enabled="true"
+                        android:onClick="onRadioButtonClicked" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:inputType="date"
+                        android:ems="10"
+                        android:id="@+id/editDate"
+                        android:layout_alignBottom="@+id/date"
+                        android:layout_toRightOf="@+id/date"
+                        android:hint="DD/MM/YYYY"
+                        android:textColor="#ffffff"
+                        android:textColorHint="#ffffff" />
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/dont_care"
+                        android:checked="true"
+                        android:layout_below="@+id/date"
+                        android:layout_alignLeft="@+id/date"
+                        android:layout_alignStart="@+id/date"
+                        android:text="Don&apos;t even bother about it"
+                        android:enabled="true"
+                        android:onClick="onRadioButtonClicked"
+                        android:textColor="#ffffff"
+                        android:textSize="20dp" />
+
+                    <Button
+                        android:layout_width="80dp"
+                        android:layout_height="40dp"
+                        android:text="Cancel"
+                        android:id="@+id/button2"
+                        android:background="#FFFFFF"
+                        android:textColor="#272727"
+                        android:layout_below="@+id/dont_care"
+                        android:layout_alignLeft="@+id/textView2"
+                        android:layout_alignStart="@+id/textView2"
+                        android:layout_marginTop="20dp"
+                        android:onClick="backToMenu" />
+
+                    <Button
+                        android:layout_width="70dp"
+                        android:layout_height="40dp"
+                        android:text="SAVE"
+                        android:id="@+id/button3"
+                        android:background="#F0C926"
+                        android:textColor="#272727"
+                        android:textStyle="bold"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginEnd="25dp"
+                        android:onClick="putToDatabase"
+                        android:layout_alignTop="@+id/button2"
+                        android:layout_alignRight="@+id/dont_care"
+                        android:layout_alignEnd="@+id/dont_care" />
+
+                    <EditText
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/editNAME"
+                        android:layout_alignBottom="@+id/textView3"
+                        android:layout_toRightOf="@+id/textView3"
+                        android:layout_alignRight="@+id/button3"
+                        android:layout_alignEnd="@+id/button3"
+                        android:textColor="#ffffff" />
+
+                    <AutoCompleteTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/autoCompleteTextView"
+                        android:layout_alignTop="@+id/textView4"
+                        android:layout_alignRight="@+id/editNAME"
+                        android:layout_alignEnd="@+id/editNAME"
+                        android:layout_toRightOf="@+id/textView3"
+                        android:layout_toEndOf="@+id/textView3"
+                        android:textColor="#ffffff" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+</FrameLayout>
