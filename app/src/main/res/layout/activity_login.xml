@@ -8,68 +8,68 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.user.smartfridge.Login">
+    tools:context="com.example.user.bookstore.com.example.user.bookstore.Login">
 
     <EditText
+        android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPassword"
-        android:ems="10"
-        android:layout_marginTop="11dp"
-        android:id="@+id/password"
-        android:hint="password"
-        android:layout_below="@+id/username"
         android:layout_alignLeft="@+id/username"
-        android:layout_alignStart="@+id/username" />
+        android:layout_alignStart="@+id/username"
+        android:layout_below="@+id/username"
+        android:layout_marginTop="11dp"
+        android:ems="10"
+        android:hint="password"
+        android:inputType="textPassword" />
 
     <Button
-        android:text="Log In"
+        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
-        android:id="@+id/login"
-        android:onClick="onLogin"
         android:elevation="5dp"
+        android:onClick="onLogin"
+        android:text="Log In"
         android:visibility="visible"
         tools:onClick="onLogin" />
 
     <Button
-        android:text="Don't have an account yet?"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/signup"
         style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/login"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/accent_material_light"
         android:onClick="onHaveNoAccount"
+        android:text="Don't have an account yet?"
+        android:textColor="@color/accent_material_light"
         tools:onClick="onHaveNoAccount" />
 
     <EditText
+        android:id="@+id/username"
+        style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:id="@+id/username"
-        android:contentDescription="username"
-        android:hint="username"
-        style="@style/Widget.AppCompat.Light.AutoCompleteTextView"
-        android:textAlignment="center"
-        android:editable="true"
+        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:contentDescription="username"
+        android:editable="true"
+        android:ems="10"
+        android:hint="username"
+        android:inputType="textPersonName"
+        android:textAlignment="center" />
 
     <TextView
+        android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/textView6"
-        tools:text="@string/welcome"
-        android:textSize="50sp"
-        android:layout_marginBottom="40dp"
-        android:text="@string/welcome"
         android:layout_above="@+id/username"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:fontFamily="casual" />
+        android:layout_marginBottom="40dp"
+        android:fontFamily="casual"
+        android:text="@string/welcome"
+        android:textSize="50sp"
+        tools:text="@string/welcome" />
 </RelativeLayout>

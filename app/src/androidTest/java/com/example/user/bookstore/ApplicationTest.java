@@ -1,4 +1,4 @@
-package com.example.user.smartfridge;
+package com.example.user.bookstore;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

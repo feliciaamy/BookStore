@@ -1,9 +1,5 @@
-package com.example.user.smartfridge;
+package com.example.user.bookstore;
 
-import com.example.user.smartfridge.util.SystemUiHider;
-
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,34 +8,18 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.EditText;
-import android.content.Intent;
-import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.BufferedReader;
+import com.example.user.bookstore.util.SystemUiHider;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -52,7 +32,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.Date;
 
 
 /**
@@ -127,79 +106,6 @@ public class Input_activity extends AppCompatActivity {
 
     }
 
-    class BackgroundTask extends AsyncTask<String,Void,String> {
-
-        String add_info_url;
-
-
-        @Override
-        protected void onPreExecute(){
-            // Domain name to PHP script
-            add_info_url = "http://iotgroup9.comli.com/add_food.php";
-        }
-
-        @Override
-        protected String doInBackground(String... args) {
-
-            // Define variable
-            String barcode;
-            barcode = args[0];
-
-            String name;
-            name = args[1];
-
-            String initialweight;
-            initialweight = args[2];
-
-            String currentweight;
-            currentweight = args[3];
-
-
-            try {
-                URL url = new URL(add_info_url);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoOutput(true);
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
-
-                //Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_SHORT).show();
-
-                //Log.i("debug:", name);
-                String data_string = URLEncoder.encode("barcode", "UTF-8")+"="+URLEncoder.encode(barcode,"UTF-8") + "&" +
-                        URLEncoder.encode("name", "UTF-8")+"="+URLEncoder.encode(name,"UTF-8") + "&" +
-                        URLEncoder.encode("initialWeight", "UTF-8")+"="+URLEncoder.encode(initialweight,"UTF-8") + "&" +
-                        URLEncoder.encode("currentWeight", "UTF-8")+"="+URLEncoder.encode(currentweight,"UTF-8");
-
-                bufferedWriter.write(data_string);
-                bufferedWriter.flush();
-                bufferedWriter.close();
-                outputStream.close();
-                InputStream inputStream = httpURLConnection.getInputStream();
-                inputStream.close();
-                httpURLConnection.disconnect();
-
-
-                return "One Row of data inserted";
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onProgressUpdate(Void... values){
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        protected void onPostExecute(String result){
-            Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
-        }
-    }
     public void selectImage(View v) {
 
         final CharSequence[] options = { "Take Photo", "Choose from Gallery","Cancel" };
@@ -284,6 +190,80 @@ public class Input_activity extends AppCompatActivity {
 
                 view.setImageBitmap(thumbnail);
             }
+        }
+    }
+
+    class BackgroundTask extends AsyncTask<String, Void, String> {
+
+        String add_info_url;
+
+
+        @Override
+        protected void onPreExecute() {
+            // Domain name to PHP script
+            add_info_url = "http://iotgroup9.comli.com/add_food.php";
+        }
+
+        @Override
+        protected String doInBackground(String... args) {
+
+            // Define variable
+            String barcode;
+            barcode = args[0];
+
+            String name;
+            name = args[1];
+
+            String initialweight;
+            initialweight = args[2];
+
+            String currentweight;
+            currentweight = args[3];
+
+
+            try {
+                URL url = new URL(add_info_url);
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoOutput(true);
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
+
+                //Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_SHORT).show();
+
+                //Log.i("debug:", name);
+                String data_string = URLEncoder.encode("barcode", "UTF-8") + "=" + URLEncoder.encode(barcode, "UTF-8") + "&" +
+                        URLEncoder.encode("name", "UTF-8") + "=" + URLEncoder.encode(name, "UTF-8") + "&" +
+                        URLEncoder.encode("initialWeight", "UTF-8") + "=" + URLEncoder.encode(initialweight, "UTF-8") + "&" +
+                        URLEncoder.encode("currentWeight", "UTF-8") + "=" + URLEncoder.encode(currentweight, "UTF-8");
+
+                bufferedWriter.write(data_string);
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                outputStream.close();
+                InputStream inputStream = httpURLConnection.getInputStream();
+                inputStream.close();
+                httpURLConnection.disconnect();
+
+
+                return "One Row of data inserted";
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(Void... values) {
+            super.onProgressUpdate(values);
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
         }
     }
 }

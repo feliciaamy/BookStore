@@ -1,4 +1,4 @@
-package com.example.user.smartfridge.util;
+package com.example.user.bookstore.util;
 
 import android.app.Activity;
 import android.view.View;

@@ -1,4 +1,4 @@
-package com.example.user.smartfridge;
+package com.example.user.bookstore;
 
 /**
  * Created by user on 18/11/16.
@@ -6,5 +6,6 @@ package com.example.user.smartfridge;
 
 public enum Action {
     LOGIN,
-    REGISTER
+    REGISTER,
+    GETALL
 }

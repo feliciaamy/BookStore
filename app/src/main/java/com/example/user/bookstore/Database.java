@@ -1,15 +1,15 @@
-package com.example.user.smartfridge;
+package com.example.user.bookstore;
 
+import android.content.Context;
 import android.os.AsyncTask;
-import android.widget.EditText;
-import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.StreamCorruptedException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -20,37 +20,55 @@ import java.net.URLEncoder;
  */
 
 public class Database extends AsyncTask<String, Void, String> {
-
-    private String LOGIN_PHP = "indobookstore.org/login.php";
-    private String REGISTER_PHP = "indobookstore.org/register.php";
+    Context context;
+    //    AlertDialog alertDialog;
+    private String LOGIN_PHP = "http://www.indobookstore.org/login.php";
+    private String REGISTER_PHP = "http://www.indobookstore.org/register.php";
+    private String GETALL = "http://www.indobookstore.org/getbooks.php";
     private HttpURLConnection httpURLConnection;
     private OutputStream outputStream;
     private BufferedWriter bufferedWriter;
+    private Action action;
+//    public AsyncResponse delegate = null;
 
+//
+//    public interface AsyncResponse {
+//        void processFinish(String output, Context context);
+//    }
+
+    public Database(Context context) {
+//        this.delegate = delegate;
+        this.context = context;
+    }
+
+//    Database(Context ctx, AsyncResponse delegate) {
+//        this.delegate = delegate;
+//        context = ctx;
+//    }
 
     @Override
     protected void onPreExecute() {
-        // Domain name to PHP script
+//        alertDialog = new AlertDialog.Builder(context).create();
+//        alertDialog.setTitle("Login Status");
     }
 
     @Override
     protected String doInBackground(String... args) {
         String data_string;
         URL url;
+        String type = args[0];
         try {
-            if (args[0].equals(Action.LOGIN.toString())) {
+            if (type.equals(Action.LOGIN.toString())) {
+                action = Action.LOGIN;
                 String username = args[1];
                 String password = args[2];
                 url = new URL(LOGIN_PHP);
 
-                //Toast.makeText(getApplicationContext(), "hello", Toast.LENGTH_SHORT).show();
-
-                //Log.i("debug:", name);
                 data_string = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&" +
                         URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
 
-//            } else if (args[0].equals(Action.REGISTER.toString())) {
-            } else {
+            } else if (args[0].equals(Action.REGISTER.toString())) {
+                action = Action.REGISTER;
                 String fullname = args[1];
                 String username = args[2];
                 String password = args[3];
@@ -62,8 +80,12 @@ public class Database extends AsyncTask<String, Void, String> {
                         URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8") + "&" +
                         URLEncoder.encode("fullname", "UTF-8") + "=" + URLEncoder.encode(fullname, "UTF-8") + "&" +
                         URLEncoder.encode("address", "UTF-8") + "=" + URLEncoder.encode(address, "UTF-8") + "&" +
-                        URLEncoder.encode("phone", "UTF-8") + "=" + URLEncoder.encode(phone, "UTF-8") + "&" +
-                        URLEncoder.encode("creditCard", "UTF-8") + "=" + URLEncoder.encode(creditCard, "UTF-8");
+                        URLEncoder.encode("phone_number", "UTF-8") + "=" + URLEncoder.encode(phone, "UTF-8") + "&" +
+                        URLEncoder.encode("creditcard", "UTF-8") + "=" + URLEncoder.encode(creditCard, "UTF-8");
+            } else {
+                action = Action.GETALL;
+                url = new URL(GETALL);
+                data_string = "";
             }
 
             connectHTTP(url);
@@ -72,11 +94,16 @@ public class Database extends AsyncTask<String, Void, String> {
             bufferedWriter.close();
             outputStream.close();
             InputStream inputStream = httpURLConnection.getInputStream();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, "iso-8859-1"));
+            String result = "";
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                result = result + line + "\n";
+            }
+            bufferedReader.close();
             inputStream.close();
             httpURLConnection.disconnect();
-
-            return "One Row of data inserted";
-
+            return result;
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -99,6 +126,7 @@ public class Database extends AsyncTask<String, Void, String> {
             httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
+            httpURLConnection.setDoInput(true);
             outputStream = httpURLConnection.getOutputStream();
             bufferedWriter = new BufferedWriter(new OutputStreamWriter(outputStream, "UTF-8"));
         } catch (IOException e) {
@@ -106,8 +134,10 @@ public class Database extends AsyncTask<String, Void, String> {
         }
 
     }
+
     @Override
-    protected void onPostExecute(String result){
-//        Toast.makeText(getApplicationContext(),result, Toast.LENGTH_LONG).show();
+    protected void onPostExecute(String result) {
+//        delegate.processFinish(result, context);
     }
+
 }

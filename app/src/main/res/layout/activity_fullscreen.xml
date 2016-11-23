@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="#272727"
-    tools:context=".FullscreenActivity">
+    tools:context="com.example.user.bookstore.FullscreenActivity">
 
 
     <!-- The primary full-screen view. This can be replaced with whatever view
@@ -22,13 +22,13 @@
             >
 
             <LinearLayout
+                android:id="@+id/L"
                 android:layout_width="fill_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/L"
-                android:weightSum="1"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:weightSum="1">
 
             </LinearLayout>
 
@@ -40,56 +40,56 @@
             android:layout_gravity="left|top">
 
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="WELCOME TO SMART FRIDGE"
-                android:id="@+id/textView"
-                android:layout_weight="0"
-                android:layout_gravity="right|top"
-                android:textAlignment="center"
-                android:password="false"
-                android:gravity="center"
-                android:textSize="40dp"
-                android:textColor="#ffffff"
                 android:layout_above="@+id/scan_Button"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+                android:layout_alignParentStart="true"
+                android:layout_gravity="right|top"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:password="false"
+                android:text="WELCOME TO SMART FRIDGE"
+                android:textAlignment="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="#ffffff"
+                android:textSize="40dp" />
 
             <Button
+                android:id="@+id/scan_Button"
                 android:layout_width="300dp"
                 android:layout_height="120dp"
-                android:text="SCAN"
-                android:id="@+id/scan_Button"
-                android:textSize="90dp"
-                android:textStyle="bold"
-                android:layout_weight="0.4"
-                android:background="#F0C926"
-                android:textColor="#272727"
-                android:layout_gravity="center_horizontal"
-                android:onClick="scanBar (FullscreenActivity)"
                 android:layout_above="@+id/takePic_Button"
                 android:layout_alignLeft="@+id/takePic_Button"
                 android:layout_alignStart="@+id/takePic_Button"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="20dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="20dp" />
+                android:layout_weight="0.4"
+                android:background="#F0C926"
+                android:onClick="scanBar (FullscreenActivity)"
+                android:text="SCAN"
+                android:textColor="#272727"
+                android:textSize="90dp"
+                android:textStyle="bold" />
 
             <Button
+                android:id="@+id/takePic_Button"
                 android:layout_width="300dp"
                 android:layout_height="120dp"
-                android:text="TAKE PICTURE"
-                android:id="@+id/takePic_Button"
-                android:textSize="50dp"
-                android:textStyle="bold"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="32dp"
                 android:layout_weight="0.4"
                 android:background="#000000"
-                android:textColor="#F0C926"
-                android:layout_gravity="center_horizontal"
                 android:elegantTextHeight="false"
                 android:onClick="goToInput"
-                android:layout_marginBottom="32dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true" />
+                android:text="TAKE PICTURE"
+                android:textColor="#F0C926"
+                android:textSize="50dp"
+                android:textStyle="bold" />
         </RelativeLayout>
 
     </FrameLayout>

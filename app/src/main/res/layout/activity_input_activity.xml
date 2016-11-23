@@ -1,7 +1,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="#272727"
-    tools:context="com.example.user.smartfridge.Input_activity">
+    tools:context="com.example.user.bookstore.com.example.user.bookstore.Input_activity">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
@@ -9,11 +9,13 @@
 
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
-    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:background="#272727"
+    <FrameLayout
         android:id="@+id/l"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center_vertical"
+        android:background="#272727"
+        android:fitsSystemWindows="true"
         android:screenOrientation="landscape">
 
         <LinearLayout android:id="@+id/fullscreen_content_controls" style="?metaButtonBarStyle"
@@ -25,176 +27,176 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#272727">
+            android:background="#272727"
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
                     <ImageButton
+                        android:id="@+id/addImage"
                         android:layout_width="200dp"
                         android:layout_height="200dp"
-                        android:id="@+id/addImage"
-                        android:src="@drawable/plus1"
-                        android:scaleType="fitXY"
-                        android:layout_marginTop="35dp"
-                        android:layout_alignParentTop="true"
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
                         android:layout_marginLeft="42dp"
                         android:layout_marginStart="42dp"
-                        android:onClick="selectImage" />
+                        android:layout_marginTop="35dp"
+                        android:onClick="selectImage"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/plus1" />
 
                     <TextView
+                        android:id="@+id/textView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:text="Add picture of the food"
-                        android:id="@+id/textView2"
-                        android:layout_gravity="bottom"
-                        android:textAlignment="center"
-                        android:singleLine="false"
-                        android:layout_below="@+id/addImage"
-                        android:layout_alignRight="@+id/addImage"
                         android:layout_alignEnd="@+id/addImage"
                         android:layout_alignLeft="@+id/addImage"
+                        android:layout_alignRight="@+id/addImage"
                         android:layout_alignStart="@+id/addImage"
+                        android:layout_below="@+id/addImage"
+                        android:layout_gravity="bottom"
                         android:gravity="center"
+                        android:singleLine="false"
+                        android:text="Add picture of the food"
+                        android:textAlignment="center"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="#ffffff" />
 
                     <TextView
+                        android:id="@+id/textView3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Name:"
-                        android:id="@+id/textView3"
-                        android:textSize="30dp"
-                        android:textStyle="bold"
                         android:layout_alignTop="@+id/addImage"
                         android:layout_centerHorizontal="true"
-                        android:textColor="@android:color/background_light" />
+                        android:text="Name:"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@android:color/background_light"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/textView4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Type:"
-                        android:id="@+id/textView4"
-                        android:textSize="30dp"
-                        android:textStyle="bold"
-                        android:layout_below="@+id/textView3"
                         android:layout_alignLeft="@+id/textView3"
                         android:layout_alignStart="@+id/textView3"
+                        android:layout_below="@+id/textView3"
                         android:layout_marginTop="30dp"
-                        android:textColor="#ffffff" />
+                        android:text="Type:"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#ffffff"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/textView5"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Expiry Date:"
-                        android:id="@+id/textView5"
-                        android:textSize="30dp"
-                        android:textStyle="bold"
                         android:layout_above="@+id/editDate"
                         android:layout_alignLeft="@+id/textView4"
                         android:layout_alignStart="@+id/textView4"
-                        android:textColor="#ffffff" />
+                        android:text="Expiry Date:"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#ffffff"
+                        android:textSize="30dp"
+                        android:textStyle="bold" />
 
                     <RadioButton
+                        android:id="@+id/date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/date"
-                        android:layout_marginLeft="27dp"
-                        android:layout_marginStart="27dp"
                         android:layout_above="@+id/textView2"
                         android:layout_alignLeft="@+id/textView5"
                         android:layout_alignStart="@+id/textView5"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginStart="27dp"
                         android:checked="false"
                         android:enabled="true"
                         android:onClick="onRadioButtonClicked" />
 
                     <EditText
+                        android:id="@+id/editDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:inputType="date"
-                        android:ems="10"
-                        android:id="@+id/editDate"
                         android:layout_alignBottom="@+id/date"
                         android:layout_toRightOf="@+id/date"
+                        android:ems="10"
                         android:hint="DD/MM/YYYY"
+                        android:inputType="date"
                         android:textColor="#ffffff"
                         android:textColorHint="#ffffff" />
 
                     <RadioButton
+                        android:id="@+id/dont_care"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/dont_care"
-                        android:checked="true"
-                        android:layout_below="@+id/date"
                         android:layout_alignLeft="@+id/date"
                         android:layout_alignStart="@+id/date"
-                        android:text="Don&apos;t even bother about it"
+                        android:layout_below="@+id/date"
+                        android:checked="true"
                         android:enabled="true"
                         android:onClick="onRadioButtonClicked"
+                        android:text="Don&apos;t even bother about it"
                         android:textColor="#ffffff"
                         android:textSize="20dp" />
 
                     <Button
+                        android:id="@+id/button2"
                         android:layout_width="80dp"
                         android:layout_height="40dp"
-                        android:text="Cancel"
-                        android:id="@+id/button2"
-                        android:background="#FFFFFF"
-                        android:textColor="#272727"
-                        android:layout_below="@+id/dont_care"
                         android:layout_alignLeft="@+id/textView2"
                         android:layout_alignStart="@+id/textView2"
+                        android:layout_below="@+id/dont_care"
                         android:layout_marginTop="20dp"
-                        android:onClick="backToMenu" />
+                        android:background="#FFFFFF"
+                        android:onClick="backToMenu"
+                        android:text="Cancel"
+                        android:textColor="#272727" />
 
                     <Button
+                        android:id="@+id/button3"
                         android:layout_width="70dp"
                         android:layout_height="40dp"
-                        android:text="SAVE"
-                        android:id="@+id/button3"
-                        android:background="#F0C926"
-                        android:textColor="#272727"
-                        android:textStyle="bold"
-                        android:layout_marginRight="25dp"
-                        android:layout_marginEnd="25dp"
-                        android:onClick="putToDatabase"
-                        android:layout_alignTop="@+id/button2"
+                        android:layout_alignEnd="@+id/dont_care"
                         android:layout_alignRight="@+id/dont_care"
-                        android:layout_alignEnd="@+id/dont_care" />
+                        android:layout_alignTop="@+id/button2"
+                        android:layout_marginEnd="25dp"
+                        android:layout_marginRight="25dp"
+                        android:background="#F0C926"
+                        android:onClick="putToDatabase"
+                        android:text="SAVE"
+                        android:textColor="#272727"
+                        android:textStyle="bold" />
 
                     <EditText
+                        android:id="@+id/editNAME"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/editNAME"
                         android:layout_alignBottom="@+id/textView3"
-                        android:layout_toRightOf="@+id/textView3"
-                        android:layout_alignRight="@+id/button3"
                         android:layout_alignEnd="@+id/button3"
+                        android:layout_alignRight="@+id/button3"
+                        android:layout_toRightOf="@+id/textView3"
                         android:textColor="#ffffff" />
 
                     <AutoCompleteTextView
+                        android:id="@+id/autoCompleteTextView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/autoCompleteTextView"
-                        android:layout_alignTop="@+id/textView4"
-                        android:layout_alignRight="@+id/editNAME"
                         android:layout_alignEnd="@+id/editNAME"
-                        android:layout_toRightOf="@+id/textView3"
+                        android:layout_alignRight="@+id/editNAME"
+                        android:layout_alignTop="@+id/textView4"
                         android:layout_toEndOf="@+id/textView3"
+                        android:layout_toRightOf="@+id/textView3"
                         android:textColor="#ffffff" />
 
                 </RelativeLayout>

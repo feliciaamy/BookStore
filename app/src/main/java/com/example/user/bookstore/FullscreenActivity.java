@@ -1,39 +1,33 @@
-package com.example.user.smartfridge;
+package com.example.user.bookstore;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.content.Intent;
-import android.view.MotionEvent;
 import android.view.View;
-import android.content.DialogInterface;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Toast;
 
-import java.io.OutputStreamWriter;
-import java.net.URLEncoder;
+import com.example.user.bookstore.util.SystemUiHider;
 
-import com.example.user.smartfridge.util.SystemUiHider;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -47,62 +41,6 @@ public class FullscreenActivity extends Activity {
     public static String BARCODE = "";
     public static String PRODUCT_NAME = "";
 
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_fullscreen);
-    }
-
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-    }
-
-
-    //product barcode mode
-    public void scanBar(View v) {
-        try {
-            //start the scanning activity from the com.google.zxing.client.android.SCAN intent
-            Intent intent = new Intent(ACTION_SCAN);
-            intent.putExtra("SCAN_MODE", "PRODUCT_MODE");
-            startActivityForResult(intent, 0);
-        } catch (ActivityNotFoundException anfe) {
-            //on catch, show the download dialog
-            showDialog(FullscreenActivity.this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
-        }
-    }
-
-    public void throwToast(){
-
-//        Toast toast = Toast.makeText(this, "Content:" + BARCODE + " Product:" + PRODUCT_NAME, Toast.LENGTH_SHORT);
-//        toast.show();
-        try{
-            Intent inputActivity = new Intent("com.example.user.smartfridge.Input_activity");
-
-            System.out.println("PRODUCT: " + PRODUCT_NAME);
-            System.out.println("BARCODE:" + BARCODE);
-            inputActivity.putExtra("PRODUCT_NAME",PRODUCT_NAME);
-            inputActivity.putExtra("BARCODE",BARCODE);
-            startActivity(inputActivity);
-        }
-        catch (ActivityNotFoundException e){
-            e.printStackTrace();
-        }
-
-    }
-    public void goToInput(View v){
-        try{
-            Intent inputActivity = new Intent("com.example.user.smartfridge.Input_activity");
-            inputActivity.putExtra(BARCODE,PRODUCT_NAME);
-            startActivity(inputActivity);
-        }
-        catch (ActivityNotFoundException e){
-            e.printStackTrace();
-        }
-    }
     //alert dialog for downloadDialog
     private static AlertDialog showDialog(final Activity act, CharSequence title, CharSequence message, CharSequence buttonYes, CharSequence buttonNo) {
         AlertDialog.Builder downloadDialog = new AlertDialog.Builder(act);
@@ -124,6 +62,63 @@ public class FullscreenActivity extends Activity {
         });
         return downloadDialog.show();
     }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.activity_fullscreen);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+    }
+
+    //product barcode mode
+    public void scanBar(View v) {
+        try {
+            //start the scanning activity from the com.google.zxing.client.android.SCAN intent
+            Intent intent = new Intent(ACTION_SCAN);
+            intent.putExtra("SCAN_MODE", "PRODUCT_MODE");
+            startActivityForResult(intent, 0);
+        } catch (ActivityNotFoundException anfe) {
+            //on catch, show the download dialog
+            showDialog(FullscreenActivity.this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show();
+        }
+    }
+
+    public void throwToast(){
+
+//        Toast toast = Toast.makeText(this, "Content:" + BARCODE + " Product:" + PRODUCT_NAME, Toast.LENGTH_SHORT);
+//        toast.show();
+        try{
+            Intent inputActivity = new Intent("Input_activity");
+
+            System.out.println("PRODUCT: " + PRODUCT_NAME);
+            System.out.println("BARCODE:" + BARCODE);
+            inputActivity.putExtra("PRODUCT_NAME",PRODUCT_NAME);
+            inputActivity.putExtra("BARCODE",BARCODE);
+            startActivity(inputActivity);
+        }
+        catch (ActivityNotFoundException e){
+            e.printStackTrace();
+        }
+
+    }
+
+    public void goToInput(View v){
+        try{
+            Intent inputActivity = new Intent("Input_activity");
+            inputActivity.putExtra(BARCODE,PRODUCT_NAME);
+            startActivity(inputActivity);
+        }
+        catch (ActivityNotFoundException e){
+            e.printStackTrace();
+        }
+    }
+
     //on ActivityResult method
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         try {
@@ -149,41 +144,6 @@ public class FullscreenActivity extends Activity {
     public void readHTML(String url) throws IOException, URISyntaxException {
         processCode product = new processCode();
         product.execute(url);
-    }
-
-    private class processCode extends AsyncTask<String,Void,Void> {
-        String textResult="";
-        @Override
-        protected Void doInBackground(String... textSource) {
-            try{
-                URL url = new URL(textSource[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.setConnectTimeout(60000);
-                connection.setReadTimeout(60000);
-                connection.addRequestProperty("User-Agent", "Chrome Dev");
-                InputStream in = connection.getInputStream();
-                Scanner readehr = new Scanner(connection.getInputStream(),"UTF-8");
-                while(readehr.hasNextLine()){
-                    final String line = readehr.nextLine();
-                    textResult = textResult + line;
-                }
-                readehr.close();
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void aVoid) {
-            writeToSDFile(textResult);
-            PRODUCT_NAME = ProductName(textResult);
-            throwToast();
-            super.onPostExecute(aVoid);
-        }
     }
 
     /** Method to write ascii text characters to file on SD card. Note that you must add a
@@ -261,10 +221,9 @@ public class FullscreenActivity extends Activity {
     public boolean containsCaseInsensitive(String s, String l){
         s = s.toLowerCase();
         l = l.toLowerCase();
-        if (s.contains(l))
-            return true;
-        else return false;
+        return s.contains(l);
     }
+
     public boolean containsCaseInsensitive(String s, List<String> l){
         for (String string : l){
             if (string.equalsIgnoreCase(s)){
@@ -272,6 +231,42 @@ public class FullscreenActivity extends Activity {
             }
         }
         return false;
+    }
+
+    private class processCode extends AsyncTask<String, Void, Void> {
+        String textResult = "";
+
+        @Override
+        protected Void doInBackground(String... textSource) {
+            try {
+                URL url = new URL(textSource[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setConnectTimeout(60000);
+                connection.setReadTimeout(60000);
+                connection.addRequestProperty("User-Agent", "Chrome Dev");
+                InputStream in = connection.getInputStream();
+                Scanner readehr = new Scanner(connection.getInputStream(), "UTF-8");
+                while (readehr.hasNextLine()) {
+                    final String line = readehr.nextLine();
+                    textResult = textResult + line;
+                }
+                readehr.close();
+
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            writeToSDFile(textResult);
+            PRODUCT_NAME = ProductName(textResult);
+            throwToast();
+            super.onPostExecute(aVoid);
+        }
     }
 
 }
