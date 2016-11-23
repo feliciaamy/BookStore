@@ -10,4 +10,120 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.user.bookstore.BookInformation">
 
+    <TextView
+        android:id="@+id/book_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="3dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:typeface="sans" />
+
+    <TextView
+        android:id="@+id/book_subject"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/book_language"
+        android:layout_marginStart="170dp"
+        android:padding="3dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/book_author"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/book_format"
+        android:layout_alignBottom="@+id/book_format"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginEnd="170dp"
+        android:padding="3dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/book_page"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/book_format"
+        android:layout_marginStart="170dp"
+        android:padding="3dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/book_publisher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/book_author"
+        android:layout_marginEnd="170dp"
+        android:padding="3dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/book_language"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/book_page"
+        android:layout_marginStart="170dp"
+        android:padding="3dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/book_year"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/book_publisher"
+        android:layout_marginEnd="170dp"
+        android:padding="3dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/book_stock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/book_isbn13"
+        android:layout_marginEnd="170dp"
+        android:padding="3dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/book_price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/book_subject"
+        android:layout_marginStart="170dp"
+        android:padding="3dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/book_isbn13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/book_year"
+        android:layout_marginEnd="170dp"
+        android:padding="3dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/book_format"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/book_title"
+        android:layout_marginStart="170dp"
+        android:elevation="24dp"
+        android:padding="3dp"
+        android:text="TextView" />
 </RelativeLayout>

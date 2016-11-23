@@ -7,5 +7,6 @@ package com.example.user.bookstore;
 public enum Action {
     LOGIN,
     REGISTER,
-    GETALL
+    GETALL,
+    GETINFO
 }

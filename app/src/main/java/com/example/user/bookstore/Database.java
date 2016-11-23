@@ -25,6 +25,7 @@ public class Database extends AsyncTask<String, Void, String> {
     private String LOGIN_PHP = "http://www.indobookstore.org/login.php";
     private String REGISTER_PHP = "http://www.indobookstore.org/register.php";
     private String GETALL = "http://www.indobookstore.org/getbooks.php";
+    private String GETINFO = "http://www.indobookstore.org/getbookinfo.php";
     private HttpURLConnection httpURLConnection;
     private OutputStream outputStream;
     private BufferedWriter bufferedWriter;
@@ -39,17 +40,6 @@ public class Database extends AsyncTask<String, Void, String> {
     public Database(Context context) {
 //        this.delegate = delegate;
         this.context = context;
-    }
-
-//    Database(Context ctx, AsyncResponse delegate) {
-//        this.delegate = delegate;
-//        context = ctx;
-//    }
-
-    @Override
-    protected void onPreExecute() {
-//        alertDialog = new AlertDialog.Builder(context).create();
-//        alertDialog.setTitle("Login Status");
     }
 
     @Override
@@ -67,7 +57,7 @@ public class Database extends AsyncTask<String, Void, String> {
                 data_string = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&" +
                         URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
 
-            } else if (args[0].equals(Action.REGISTER.toString())) {
+            } else if (type.equals(Action.REGISTER.toString())) {
                 action = Action.REGISTER;
                 String fullname = args[1];
                 String username = args[2];
@@ -82,10 +72,15 @@ public class Database extends AsyncTask<String, Void, String> {
                         URLEncoder.encode("address", "UTF-8") + "=" + URLEncoder.encode(address, "UTF-8") + "&" +
                         URLEncoder.encode("phone_number", "UTF-8") + "=" + URLEncoder.encode(phone, "UTF-8") + "&" +
                         URLEncoder.encode("creditcard", "UTF-8") + "=" + URLEncoder.encode(creditCard, "UTF-8");
-            } else {
+            } else if (type.equals(Action.GETALL.toString())) {
                 action = Action.GETALL;
                 url = new URL(GETALL);
                 data_string = "";
+            } else {
+                action = Action.GETINFO;
+                url = new URL(GETINFO);
+                String isbn13 = args[1];
+                data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8");
             }
 
             connectHTTP(url);

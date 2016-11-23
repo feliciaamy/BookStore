@@ -33,10 +33,11 @@ public class BookListAdapter extends RecyclerView.Adapter<BooksList> {
 
             @Override
             public void onClick(View view) {
+                // Url = isbn13
                 TextView url = (TextView) view.findViewById(R.id.url);
-                String postUrl = url.getText().toString();
+                String isbn13 = url.getText().toString();
                 Intent intent = new Intent(context, BookInformation.class);
-                intent.putExtra("url", postUrl);
+                intent.putExtra("isbn13", isbn13);
                 context.startActivity(intent);
             }
         });
@@ -55,6 +56,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BooksList> {
         holder.publisher.setText(book.getPublisher());
         holder.price.setText(book.getPrice());
         holder.stock.setText(book.getStock());
+        holder.url.setText(book.getUrl());
     }
 
     @Override

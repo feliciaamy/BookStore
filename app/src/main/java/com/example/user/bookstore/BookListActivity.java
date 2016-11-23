@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,13 +57,13 @@ public class BookListActivity extends Activity {
         try {
             Database database = new Database(this);
             String result = database.execute(Action.GETALL.toString()).get();
+            Log.d("BookListActivity", result);
             String[] booksString = result.split("<br>");
 
             for (String book : booksString) {
-
                 BookRow bookRow = new BookRow();
                 String[] book_info = book.split(";");
-                if (book_info.length == 5) {
+                if (book_info.length == 6) {
                     bookRow.setTitle(book_info[0]);
                     bookRow.setAuthor(book_info[1]);
                     bookRow.setPublisher(book_info[2]);
@@ -72,11 +73,7 @@ public class BookListActivity extends Activity {
                     bookslist.add(bookRow);
                 }
             }
-        } catch (
-                ExecutionException e
-                )
-
-        {
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
