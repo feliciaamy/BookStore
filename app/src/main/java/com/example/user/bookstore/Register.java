@@ -46,7 +46,7 @@ public class Register extends Activity {
         try {
             Database database = new Database(this);
             String result = database.execute(Action.REGISTER.toString(), fullname_str, username_str, password_str,
-                    address_str, password_str, creditCard_str).get();
+                    address_str, phone_str, creditCard_str).get();
             if (result.contains("Welcome")) {
                 Toast.makeText(getApplicationContext(), "Registration successful", Toast.LENGTH_LONG).show();
                 backToLogin(w);

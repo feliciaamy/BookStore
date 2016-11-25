@@ -7,6 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.example.user.bookstore.BookList.BookListAdapter;
+import com.example.user.bookstore.BookList.BookRow;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -16,8 +19,6 @@ import java.util.concurrent.ExecutionException;
  */
 
 public class BookListActivity extends Activity {
-    public static final String TAG = "BookList";
-    private String data;
     private List<BookRow> bookslist = new ArrayList<BookRow>();
     private RecyclerView mRecyclerView;
     private BookListAdapter adapter;

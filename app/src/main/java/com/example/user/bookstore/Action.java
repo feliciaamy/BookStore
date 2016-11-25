@@ -8,5 +8,7 @@ public enum Action {
     LOGIN,
     REGISTER,
     GETALL,
-    GETINFO
+    GETINFO,
+    GIVENFEEDBACK,
+    INPUTFEEDBACK
 }

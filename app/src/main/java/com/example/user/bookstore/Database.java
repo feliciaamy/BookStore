@@ -2,6 +2,7 @@ package com.example.user.bookstore;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -14,6 +15,8 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * Created by user on 18/11/16.
@@ -26,6 +29,8 @@ public class Database extends AsyncTask<String, Void, String> {
     private String REGISTER_PHP = "http://www.indobookstore.org/register.php";
     private String GETALL = "http://www.indobookstore.org/getbooks.php";
     private String GETINFO = "http://www.indobookstore.org/getbookinfo.php";
+    private String GIVENFEEDBACK = "http://www.indobookstore.org/givenfeedback.php";
+    private String INPUTFEEDBACK = "http://www.indobookstore.org/inputfeedback.php";
     private HttpURLConnection httpURLConnection;
     private OutputStream outputStream;
     private BufferedWriter bufferedWriter;
@@ -76,11 +81,34 @@ public class Database extends AsyncTask<String, Void, String> {
                 action = Action.GETALL;
                 url = new URL(GETALL);
                 data_string = "";
-            } else {
+            } else if (type.equals(Action.GETINFO.toString())) {
                 action = Action.GETINFO;
                 url = new URL(GETINFO);
                 String isbn13 = args[1];
                 data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8");
+            } else if (type.equals(Action.GIVENFEEDBACK.toString())) {
+                action = Action.GIVENFEEDBACK;
+                url = new URL(GIVENFEEDBACK);
+                String isbn13 = args[1];
+                String username = args[2];
+                data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8") + "&" +
+                        URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+            } else {
+                action = Action.INPUTFEEDBACK;
+                url = new URL(INPUTFEEDBACK);
+                String isbn13 = args[1];
+                String username = args[2];
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String date = df.format(c.getTime());
+                Log.d("DATE", date);
+                String remarks = args[3];
+                String score = args[4];
+                data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8") + "&" +
+                        URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&" +
+                        URLEncoder.encode("date", "UTF-8") + "=" + URLEncoder.encode(date, "UTF-8") + "&" +
+                        URLEncoder.encode("remarks", "UTF-8") + "=" + URLEncoder.encode(remarks, "UTF-8") + "&" +
+                        URLEncoder.encode("score", "UTF-8") + "=" + URLEncoder.encode(score, "UTF-8");
             }
 
             connectHTTP(url);

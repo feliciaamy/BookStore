@@ -12,8 +12,7 @@ import android.widget.Toast;
 import java.io.File;
 
 public class Login extends Activity {
-
-    protected String USERNAME = "";
+    public static String USERNAME;
     protected boolean loginSucceed = false;
     File root = android.os.Environment.getExternalStorageDirectory();
 
@@ -35,21 +34,6 @@ public class Login extends Activity {
             String username_str = username.getText().toString();
             String password_str = password.getText().toString();
 
-//            Database asyncTask = (Database) new Database(new Database.AsyncResponse() {
-//                @Override
-//                public void processFinish(String output, Context context) {
-//                    Toast.makeText(getApplicationContext(), output, Toast.LENGTH_LONG).show();
-//                    if (output.contains("Welcome")) {
-//                        loginSucceed = true;
-//                        Log.d("Create Intent", "Go to BookListActivity");
-//                        Intent intent = new Intent(context, BookListActivity.class);
-//                        intent.putExtra("FILTER", "*");
-//                        startActivity(intent);
-//                    }
-//                    Log.d("Login Status", loginSucceed ? "Succeed" : "Not Succeed");
-//                }
-//            }, this).execute(Action.LOGIN.toString(), username_str, password_str);
-
             Database database = new Database(this);
             String result = database.execute(Action.LOGIN.toString(), username_str, password_str).get();
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
@@ -59,6 +43,7 @@ public class Login extends Activity {
                 Intent intent = new Intent(this, BookListActivity.class);
                 intent.putExtra("FILTER", "*");
                 startActivity(intent);
+                USERNAME = username_str;
             }
             Log.d("Login Status", loginSucceed ? "Succeed" : "Not Succeed");
         } catch (Exception e) {

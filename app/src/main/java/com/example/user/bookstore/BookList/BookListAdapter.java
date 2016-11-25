@@ -1,4 +1,4 @@
-package com.example.user.bookstore;
+package com.example.user.bookstore.BookList;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.user.bookstore.BookInformationActivity;
+import com.example.user.bookstore.R;
 
 import java.util.List;
 
@@ -36,7 +39,7 @@ public class BookListAdapter extends RecyclerView.Adapter<BooksList> {
                 // Url = isbn13
                 TextView url = (TextView) view.findViewById(R.id.url);
                 String isbn13 = url.getText().toString();
-                Intent intent = new Intent(context, BookInformation.class);
+                Intent intent = new Intent(context, BookInformationActivity.class);
                 intent.putExtra("isbn13", isbn13);
                 context.startActivity(intent);
             }

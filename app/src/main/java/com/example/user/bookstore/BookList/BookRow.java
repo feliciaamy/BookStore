@@ -1,4 +1,4 @@
-package com.example.user.bookstore;
+package com.example.user.bookstore.BookList;
 
 /**
  * Created by user on 23/11/16.

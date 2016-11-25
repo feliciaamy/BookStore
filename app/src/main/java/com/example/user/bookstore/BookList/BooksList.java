@@ -1,9 +1,11 @@
-package com.example.user.bookstore;
+package com.example.user.bookstore.BookList;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.user.bookstore.R;
 
 public class BooksList extends RecyclerView.ViewHolder {
 
