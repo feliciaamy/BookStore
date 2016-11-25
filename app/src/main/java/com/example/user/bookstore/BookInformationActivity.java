@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.RatingBar;
@@ -26,7 +27,8 @@ public class BookInformationActivity extends Activity {
     private String ISBN13;
     private TextView title, price, stock;
     private EditText comment;
-    private RatingBar rating;
+    private RatingBar rating, book_rate;
+    private Button submit_button;
     private String score;
     private boolean allowToComment;
 
@@ -59,7 +61,25 @@ public class BookInformationActivity extends Activity {
             String result = null;
             result = database.execute(Action.INPUTFEEDBACK.toString(), ISBN13, Login.USERNAME, remarks, score).get();
 
+            // Update rate indicator
+            setRateIndicator();
+            Toast.makeText(getApplicationContext(), "Feedback submitted!", Toast.LENGTH_SHORT).show();
             Log.d("INPUT FEEDBACK", result.toString());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void setRateIndicator() {
+        Database database = new Database(this);
+        try {
+            String result = database.execute(Action.GETAVERAGERATE.toString(), ISBN13).get();
+            book_rate.setRating(Float.parseFloat(result));
+            Log.d("Rate indicator (Actual)", Float.parseFloat(result) + "");
+            Log.d("Rate indicator", book_rate.getRating() + "");
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -73,7 +93,6 @@ public class BookInformationActivity extends Activity {
         try {
             Database database = new Database(this);
             String result = database.execute(Action.GIVENFEEDBACK.toString(), ISBN13, Login.USERNAME).get();
-
             hasGiven = result.contains("TRUE");
             Log.d(Login.USERNAME, String.valueOf(hasGiven));
         } catch (InterruptedException e) {
@@ -129,13 +148,19 @@ public class BookInformationActivity extends Activity {
         title = (TextView) findViewById(R.id.book_title);
         price = (TextView) findViewById(R.id.book_price);
         stock = (TextView) findViewById(R.id.book_stock);
+        submit_button = (Button) findViewById(R.id.feedback_submit);
+        // Set Book Rate (Indicator)
+        book_rate = (RatingBar) findViewById(R.id.rate_indicator);
+        setRateIndicator();
 
         rating = (RatingBar) findViewById(R.id.ratingBar);
         comment = (EditText) findViewById(R.id.comment);
         if (!allowToComment) {
             Log.d("ALLOW TO COMMENT", "This user is not allowed to give any comment");
-            rating.setWillNotDraw(true);
-            comment.setWillNotDraw(true);
+//            rating.setWillNotDraw(true);
+//            comment.setWillNotDraw(true);
+//            submit_button.setWillNotDraw(true);
+
         } else {
             Log.d("RATINGBAR", "Set listener");
             rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {

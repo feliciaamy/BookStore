@@ -10,5 +10,6 @@ public enum Action {
     GETALL,
     GETINFO,
     GIVENFEEDBACK,
-    INPUTFEEDBACK
+    INPUTFEEDBACK,
+    GETAVERAGERATE
 }

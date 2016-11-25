@@ -32,10 +32,7 @@
         android:layout_alignBottom="@+id/book_stock"
         android:layout_marginLeft="170dp"
         android:layout_marginStart="170dp"
-        android:numStars="5"
         android:padding="10dp"
-        android:rating="5"
-        android:stepSize="1.0"
         android:text="TextView" />
 
     <RatingBar
@@ -47,7 +44,10 @@
         android:layout_centerHorizontal="true"
         android:clickable="true"
         android:contextClickable="true"
-        android:isIndicator="false" />
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="5"
+        android:stepSize="1.0" />
 
     <TextView
         android:id="@+id/book_stock"
@@ -66,10 +66,9 @@
         android:id="@+id/information"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/comment"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/book_title"
+        android:layout_below="@+id/rate_indicator"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:padding="10dp" />
@@ -99,6 +98,17 @@
         android:onClick="onSubmitFeedback"
         android:text="Submit"
         tools:onClick="onSubmitFeedback" />
+
+    <RatingBar
+        android:id="@+id/rate_indicator"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/book_title"
+        android:padding="3dp"
+        android:rating="0"
+        android:stepSize="1.0"
+        tools:rating="0" />
 
 
 </RelativeLayout>

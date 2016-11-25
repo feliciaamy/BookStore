@@ -31,6 +31,7 @@ public class Database extends AsyncTask<String, Void, String> {
     private String GETINFO = "http://www.indobookstore.org/getbookinfo.php";
     private String GIVENFEEDBACK = "http://www.indobookstore.org/givenfeedback.php";
     private String INPUTFEEDBACK = "http://www.indobookstore.org/inputfeedback.php";
+    private String GETAVERAGERATE = "http://www.indobookstore.org/getavgrate.php";
     private HttpURLConnection httpURLConnection;
     private OutputStream outputStream;
     private BufferedWriter bufferedWriter;
@@ -93,7 +94,7 @@ public class Database extends AsyncTask<String, Void, String> {
                 String username = args[2];
                 data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8") + "&" +
                         URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
-            } else {
+            } else if (type.equals(Action.INPUTFEEDBACK.toString())) {
                 action = Action.INPUTFEEDBACK;
                 url = new URL(INPUTFEEDBACK);
                 String isbn13 = args[1];
@@ -109,6 +110,11 @@ public class Database extends AsyncTask<String, Void, String> {
                         URLEncoder.encode("date", "UTF-8") + "=" + URLEncoder.encode(date, "UTF-8") + "&" +
                         URLEncoder.encode("remarks", "UTF-8") + "=" + URLEncoder.encode(remarks, "UTF-8") + "&" +
                         URLEncoder.encode("score", "UTF-8") + "=" + URLEncoder.encode(score, "UTF-8");
+            } else {
+                action = Action.GETAVERAGERATE;
+                url = new URL(GETAVERAGERATE);
+                String isbn13 = args[1];
+                data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8");
             }
 
             connectHTTP(url);
