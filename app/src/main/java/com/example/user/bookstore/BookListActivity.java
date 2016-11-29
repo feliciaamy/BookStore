@@ -51,7 +51,7 @@ public class BookListActivity extends Activity {
 
         try {
             Database database = new Database(this);
-            String result = database.execute(Action.GETALL.toString()).get();
+            String result = database.execute(Action.GETBOOKS.toString()).get();
             Log.d("BookListActivity", result);
             String[] booksString = result.split("<br>");
 

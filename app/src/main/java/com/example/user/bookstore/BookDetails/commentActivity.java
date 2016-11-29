@@ -10,9 +10,9 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-import com.example.user.bookstore.Action;
 import com.example.user.bookstore.BookInformationActivity;
-import com.example.user.bookstore.Database;
+import com.example.user.bookstore.Database.Action;
+import com.example.user.bookstore.Database.Database;
 import com.example.user.bookstore.Login;
 import com.example.user.bookstore.R;
 

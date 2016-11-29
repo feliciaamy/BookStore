@@ -7,10 +7,12 @@ package com.example.user.bookstore.Database;
 public enum Action {
     LOGIN,
     REGISTER,
-    GETALL,
+    GETBOOKS,
     GETINFO,
     GIVENFEEDBACK,
     INPUTFEEDBACK,
     GETAVERAGERATE,
-    GETFEEDBACK
+    GETFEEDBACK,
+    GETBOOKSFILTERED
+
 }

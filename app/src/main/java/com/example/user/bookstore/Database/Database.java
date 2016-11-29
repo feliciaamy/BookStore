@@ -27,12 +27,13 @@ public class Database extends AsyncTask<String, Void, String> {
     //    AlertDialog alertDialog;
     private String LOGIN_PHP = "http://www.indobookstore.org/login.php";
     private String REGISTER_PHP = "http://www.indobookstore.org/register.php";
-    private String GETALL = "http://www.indobookstore.org/getbooks.php";
+    private String GETBOOKS = "http://www.indobookstore.org/getbooks.php";
     private String GETINFO = "http://www.indobookstore.org/getbookinfo.php";
     private String GIVENFEEDBACK = "http://www.indobookstore.org/givenfeedback.php";
     private String INPUTFEEDBACK = "http://www.indobookstore.org/inputfeedback.php";
     private String GETFEEDBACK = "http://www.indobookstore.org/getfeedback.php";
     private String GETAVERAGERATE = "http://www.indobookstore.org/getavgrate.php";
+    private String GETBOOKSFILTERED = "http://www.indobookstore.org/getbooksfilter.php";
     private HttpURLConnection httpURLConnection;
     private OutputStream outputStream;
     private BufferedWriter bufferedWriter;
@@ -79,9 +80,9 @@ public class Database extends AsyncTask<String, Void, String> {
                         URLEncoder.encode("address", "UTF-8") + "=" + URLEncoder.encode(address, "UTF-8") + "&" +
                         URLEncoder.encode("phone_number", "UTF-8") + "=" + URLEncoder.encode(phone, "UTF-8") + "&" +
                         URLEncoder.encode("creditcard", "UTF-8") + "=" + URLEncoder.encode(creditCard, "UTF-8");
-            } else if (type.equals(Action.GETALL.toString())) {
-                action = Action.GETALL;
-                url = new URL(GETALL);
+            } else if (type.equals(Action.GETBOOKS.toString())) {
+                action = Action.GETBOOKS;
+                url = new URL(GETBOOKS);
                 data_string = "";
             } else if (type.equals(Action.GETINFO.toString())) {
                 action = Action.GETINFO;
@@ -116,11 +117,19 @@ public class Database extends AsyncTask<String, Void, String> {
                 url = new URL(GETAVERAGERATE);
                 String isbn13 = args[1];
                 data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8");
-            } else {
+            } else if (type.equals(Action.GETFEEDBACK.toString())) {
                 action = Action.GETFEEDBACK;
                 url = new URL(GETFEEDBACK);
                 String isbn13 = args[1];
                 data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8");
+            } else {
+                action = Action.GETBOOKSFILTERED;
+                url = new URL(GETBOOKSFILTERED);
+                // Filter has to be from the enum Filter (don't forget to apply .toString())
+                String filter = args[1];
+                String search = args[2];
+                data_string = URLEncoder.encode("filter", "UTF-8") + "=" + URLEncoder.encode(filter, "UTF-8") + "&" +
+                        URLEncoder.encode("search", "UTF-8") + "=" + URLEncoder.encode(search, "UTF-8");
             }
 
             connectHTTP(url);
@@ -140,10 +149,18 @@ public class Database extends AsyncTask<String, Void, String> {
             httpURLConnection.disconnect();
             return result;
 
-        } catch (MalformedURLException e) {
+        } catch (
+                MalformedURLException e
+                )
+
+        {
             e.printStackTrace();
             return "The URL given is not available";
-        } catch (IOException e) {
+        } catch (
+                IOException e
+                )
+
+        {
             e.printStackTrace();
             return "Unable to make an HTTP connection";
         }
