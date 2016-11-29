@@ -1,4 +1,4 @@
-package com.example.user.bookstore;
+package com.example.user.bookstore.Database;
 
 /**
  * Created by user on 18/11/16.

@@ -17,6 +17,8 @@ import com.example.user.bookstore.BookDetails.BookInformationAdapter;
 import com.example.user.bookstore.BookDetails.CommentActivity;
 import com.example.user.bookstore.BookDetails.CommentRow;
 import com.example.user.bookstore.BookDetails.CommentsAdapter;
+import com.example.user.bookstore.Database.Action;
+import com.example.user.bookstore.Database.Database;
 
 import java.util.ArrayList;
 import java.util.HashMap;
