@@ -34,6 +34,8 @@ public class Database extends AsyncTask<String, Void, String> {
     private String GETFEEDBACK = "http://www.indobookstore.org/getfeedback.php";
     private String GETAVERAGERATE = "http://www.indobookstore.org/getavgrate.php";
     private String GETBOOKSFILTERED = "http://www.indobookstore.org/getbooksfilter.php";
+    private String PLACEORDER = "http://www.indobookstore.org/placeorder.php";
+    private String ORDERBOOK = "http://www.indobookstore.org/orderbook.php";
     private HttpURLConnection httpURLConnection;
     private OutputStream outputStream;
     private BufferedWriter bufferedWriter;
@@ -122,7 +124,7 @@ public class Database extends AsyncTask<String, Void, String> {
                 url = new URL(GETFEEDBACK);
                 String isbn13 = args[1];
                 data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8");
-            } else {
+            } else if (type.equals(Action.GETBOOKSFILTERED.toString())) {
                 action = Action.GETBOOKSFILTERED;
                 url = new URL(GETBOOKSFILTERED);
                 // Filter has to be from the enum Filter (don't forget to apply .toString())
@@ -130,6 +132,27 @@ public class Database extends AsyncTask<String, Void, String> {
                 String search = args[2];
                 data_string = URLEncoder.encode("filter", "UTF-8") + "=" + URLEncoder.encode(filter, "UTF-8") + "&" +
                         URLEncoder.encode("search", "UTF-8") + "=" + URLEncoder.encode(search, "UTF-8");
+            } else if (type.equals(Action.PLACEORDER.toString())) {
+                action = Action.PLACEORDER;
+                url = new URL(PLACEORDER);
+                // THIS WILL RETURN YOU THE ORDER_ID
+                String username = args[1];
+                String status = args[2];
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                String date = df.format(c.getTime());
+                data_string = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&" +
+                        URLEncoder.encode("status", "UTF-8") + "=" + URLEncoder.encode(status, "UTF-8") + "&" +
+                        URLEncoder.encode("date", "UTF-8") + "=" + URLEncoder.encode(date, "UTF-8");
+            } else {
+                action = Action.ORDERBOOK;
+                url = new URL(ORDERBOOK);
+                String isbn13 = args[1];
+                String copies = args[2];
+                String order_id = args[3];
+                data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8") + "&" +
+                        URLEncoder.encode("copies", "UTF-8") + "=" + URLEncoder.encode(copies, "UTF-8") + "&" +
+                        URLEncoder.encode("order_id", "UTF-8") + "=" + URLEncoder.encode(order_id, "UTF-8");
             }
 
             connectHTTP(url);
