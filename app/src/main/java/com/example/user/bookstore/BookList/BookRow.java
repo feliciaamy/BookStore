@@ -7,7 +7,6 @@ package com.example.user.bookstore.BookList;
 public class BookRow {
     private String title, author, publisher, price, stock, url;
 
-
     public String getTitle() {
         return title;
     }

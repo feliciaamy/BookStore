@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/back_button"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:onClick="backToBookInformation (CommentActivity)"
+        android:text="Back" />
+
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/book_price"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp"
+        android:ems="10"
+        android:hint="Leave comment here"
+        android:inputType="textMultiLine"
+        android:padding="30dp"
+        android:textAlignment="center" />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/Widget.AppCompat.RatingBar.Indicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/feedback_submit"
+        android:layout_alignStart="@+id/feedback_submit"
+        android:layout_below="@+id/comment"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginRight="80dp"
+        android:clickable="true"
+        android:contextClickable="true"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:padding="20dp"
+        android:rating="5"
+        android:stepSize="1.0" />
+
+    <Button
+        android:id="@+id/feedback_submit"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ratingBar"
+        android:layout_marginLeft="140dp"
+        android:onClick="onSubmitFeedback"
+        android:padding="20dp"
+        android:text="Submit"
+        android:textAlignment="center" />
+
+</LinearLayout>

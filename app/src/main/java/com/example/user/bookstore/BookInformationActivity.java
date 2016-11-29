@@ -3,16 +3,20 @@ package com.example.user.bookstore;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.user.bookstore.BookDetails.BookInformationAdapter;
+import com.example.user.bookstore.BookDetails.CommentActivity;
+import com.example.user.bookstore.BookDetails.CommentRow;
+import com.example.user.bookstore.BookDetails.CommentsAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,54 +24,53 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class BookInformationActivity extends Activity {
+    // Information List
     BookInformationAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    private boolean allowToComment;
     private String ISBN13;
     private TextView title, price, stock;
-    private EditText comment;
-    private RatingBar rating, book_rate;
-    private Button submit_button;
+    private RatingBar book_rate;
+    private Button feedback_button;
     private String score;
-    private boolean allowToComment;
+    // RecyclerView
+    private RecyclerView commentView;
+    private RecyclerView.LayoutManager mLayoutManager;
+    private CommentsAdapter commentsAdapter;
+    private List<CommentRow> commentsList = new ArrayList<CommentRow>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_book_information);
-
-
         Intent intent = getIntent();
         ISBN13 = intent.getStringExtra("isbn13");
         Log.d("ISBN13", ISBN13);
 
         allowToComment = !givenFeedback();
+        setContentView(R.layout.activity_book_information);
+
         prepareLayout(allowToComment);
-
-
         expListView = (ExpandableListView) findViewById(R.id.information);
 
         prepareListData();
 
         listAdapter = new BookInformationAdapter(this, listDataHeader, listDataChild);
         expListView.setAdapter(listAdapter);
-    }
 
-    public void onSubmitFeedback(View v) {
+
+        // Recycler View Setting
+        commentView = (RecyclerView) findViewById(R.id.comment_view);
+
+        commentView.setHasFixedSize(true);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        commentView.setLayoutManager(mLayoutManager);
+
         try {
-            String remarks = comment.getText().toString();
-            Database database = new Database(this);
-            String result = null;
-            result = database.execute(Action.INPUTFEEDBACK.toString(), ISBN13, Login.USERNAME, remarks, score).get();
-
-            // Update rate indicator
-            setRateIndicator();
-            Toast.makeText(getApplicationContext(), "Feedback submitted!", Toast.LENGTH_SHORT).show();
-            Log.d("INPUT FEEDBACK", result.toString());
+            updateList();
         } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
             e.printStackTrace();
         }
 
@@ -101,6 +104,35 @@ public class BookInformationActivity extends Activity {
             e.printStackTrace();
         }
         return hasGiven;
+    }
+
+    public void updateList() throws InterruptedException {
+        commentsAdapter = new CommentsAdapter(this, commentsList);
+        commentView.setAdapter(commentsAdapter);
+        commentsAdapter.clearAdapter();
+
+        try {
+            Database database = new Database(this);
+            String result = database.execute(Action.GETFEEDBACK.toString(), ISBN13).get();
+            Log.d("Feedback", result);
+            String[] booksString = result.split("<br>");
+
+            for (String book : booksString) {
+                CommentRow commentRow = new CommentRow();
+                String[] comment_info = book.split(";");
+                if (comment_info.length == 4) {
+                    commentRow.setName(comment_info[0]);
+                    commentRow.setDate(comment_info[1]);
+                    commentRow.setRating(comment_info[2]);
+                    commentRow.setComment(comment_info[3]);
+                    commentsList.add(commentRow);
+                }
+            }
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        commentsAdapter.notifyDataSetChanged();
     }
 
     private void prepareListData() {
@@ -144,37 +176,32 @@ public class BookInformationActivity extends Activity {
         }
     }
 
+    public void onFeedbackClicked(View v) {
+        if (!allowToComment) {
+            Log.d("ALLOW TO COMMENT", "This user is not allowed to give any comment");
+            Toast.makeText(getApplicationContext(), "Your feedback has been submitted, you're not allowed to give more feedback", Toast.LENGTH_LONG).show();
+        } else {
+            goToCommentActivity();
+        }
+
+    }
+
     private void prepareLayout(boolean allowToComment) {
         title = (TextView) findViewById(R.id.book_title);
         price = (TextView) findViewById(R.id.book_price);
         stock = (TextView) findViewById(R.id.book_stock);
-        submit_button = (Button) findViewById(R.id.feedback_submit);
+
         // Set Book Rate (Indicator)
         book_rate = (RatingBar) findViewById(R.id.rate_indicator);
         setRateIndicator();
 
-        rating = (RatingBar) findViewById(R.id.ratingBar);
-        comment = (EditText) findViewById(R.id.comment);
-        if (!allowToComment) {
-            Log.d("ALLOW TO COMMENT", "This user is not allowed to give any comment");
-//            rating.setWillNotDraw(true);
-//            comment.setWillNotDraw(true);
-//            submit_button.setWillNotDraw(true);
+        feedback_button = (Button) findViewById(R.id.feedback_button);
+    }
 
-        } else {
-            Log.d("RATINGBAR", "Set listener");
-            rating.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
-                public void onRatingChanged(RatingBar ratingBar, float rating,
-                                            boolean fromUser) {
-
-                    score = String.valueOf(rating);
-                    Log.d("RATINGBAR", "Change rating to " + score);
-
-                }
-            });
-
-
-        }
+    public void goToCommentActivity() {
+        Intent main = new Intent(this, CommentActivity.class);
+        main.putExtra("isbn13", ISBN13);
+        startActivity(main);
     }
 }
 

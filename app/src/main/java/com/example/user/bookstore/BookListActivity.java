@@ -1,7 +1,6 @@
 package com.example.user.bookstore;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -23,11 +22,6 @@ public class BookListActivity extends Activity {
     private RecyclerView mRecyclerView;
     private BookListAdapter adapter;
 
-    private int counter = 0;
-    private String count;
-
-    private ProgressDialog progressDialog;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,8 +42,6 @@ public class BookListActivity extends Activity {
     }
 
     public void updateList() throws InterruptedException {
-        counter = 0;
-
         adapter = new BookListAdapter(BookListActivity.this, bookslist);
         mRecyclerView.setAdapter(adapter);
 

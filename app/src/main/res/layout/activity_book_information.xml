@@ -36,18 +36,18 @@
         android:text="TextView" />
 
     <RatingBar
-        android:id="@+id/ratingBar"
-        style="@style/Widget.AppCompat.RatingBar.Indicator"
-        android:layout_width="wrap_content"
+        android:id="@+id/rate_indicator"
+        style="@style/Widget.AppCompat.RatingBar.Small"
+        android:layout_width="89dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/comment"
-        android:layout_centerHorizontal="true"
-        android:clickable="true"
-        android:contextClickable="true"
-        android:isIndicator="false"
+        android:layout_below="@+id/book_title"
+        android:maxHeight="20dp"
+        android:minHeight="20dp"
         android:numStars="5"
-        android:rating="5"
-        android:stepSize="1.0" />
+        android:padding="3dp"
+        android:rating="0"
+        android:stepSize="55"
+        tools:rating="0" />
 
     <TextView
         android:id="@+id/book_stock"
@@ -55,12 +55,30 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/book_title"
-        android:layout_marginEnd="170dp"
-        android:layout_marginRight="170dp"
-        android:layout_marginTop="70dp"
+        android:layout_below="@+id/rate_indicator"
         android:padding="10dp"
         android:text="TextView" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/comment_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/feedback_button"
+        android:layout_marginTop="50dp" />
+
+    <Button
+        android:id="@+id/feedback_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/book_stock"
+        android:onClick="onFeedbackClicked"
+        android:text="Give Feedback" />
 
     <ExpandableListView
         android:id="@+id/information"
@@ -68,47 +86,10 @@
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/rate_indicator"
+        android:layout_below="@+id/feedback_button"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
         android:padding="10dp" />
-
-    <EditText
-        android:id="@+id/comment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/book_price"
-        android:ems="10"
-        android:hint="Leave comment here"
-        android:inputType="textMultiLine"
-        android:padding="10dp" />
-
-    <Button
-        android:id="@+id/feedback_submit"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/book_title"
-        android:layout_alignStart="@+id/book_title"
-        android:layout_below="@+id/ratingBar"
-        android:onClick="onSubmitFeedback"
-        android:text="Submit"
-        tools:onClick="onSubmitFeedback" />
-
-    <RatingBar
-        android:id="@+id/rate_indicator"
-        style="@style/Widget.AppCompat.RatingBar.Small"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/book_title"
-        android:padding="3dp"
-        android:rating="0"
-        android:stepSize="1.0"
-        tools:rating="0" />
 
 
 </RelativeLayout>

@@ -58,15 +58,5 @@ public class Register extends Activity {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-//        Database asyncTask = (Database) new Database(new Database.AsyncResponse(){
-//            @Override
-//            public void processFinish(String output, Context context) {
-//                Log.d("Result", output);
-//            }
-//        }, this).execute(Action.REGISTER.toString(), fullname_str, username_str, password_str,
-//                address_str, password_str, creditCard_str);
-
-
     }
 }
