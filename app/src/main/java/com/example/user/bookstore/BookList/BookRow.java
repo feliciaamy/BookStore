@@ -5,7 +5,9 @@ package com.example.user.bookstore.BookList;
  */
 
 public class BookRow {
-    private String title, author, publisher, price, stock, url;
+    private String title, author, publisher, url;
+    private int total, stock;
+    private double price;
 
     public String getTitle() {
         return title;
@@ -23,27 +25,37 @@ public class BookRow {
         this.author = author;
     }
 
+    public int getTotal() {
+
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
     public String getPublisher() {
         return publisher;
+
     }
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
     }
 
-    public String getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(String stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 

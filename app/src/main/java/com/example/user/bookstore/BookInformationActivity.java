@@ -186,7 +186,6 @@ public class BookInformationActivity extends Activity {
         } else {
             goToCommentActivity();
         }
-
     }
 
     private void prepareLayout(boolean allowToComment) {

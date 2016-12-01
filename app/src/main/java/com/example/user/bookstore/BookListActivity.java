@@ -30,6 +30,7 @@ public class BookListActivity extends AppCompatActivity implements SearchView.On
     private BookListAdapter adapter;
     private Toolbar toolbar;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +51,6 @@ public class BookListActivity extends AppCompatActivity implements SearchView.On
         }
     }
 
-//    @Override
-//    public boolean onSearchRequested() {
-////        pauseSomeStuff();
-//        return super.onSearchRequested();
-//    }
-
     public void updateList() throws InterruptedException {
         adapter = new BookListAdapter(BookListActivity.this, bookslist);
         mRecyclerView.setAdapter(adapter);
@@ -75,9 +70,10 @@ public class BookListActivity extends AppCompatActivity implements SearchView.On
                     bookRow.setTitle(book_info[0]);
                     bookRow.setAuthor(book_info[1]);
                     bookRow.setPublisher(book_info[2]);
-                    bookRow.setPrice(book_info[3] + " USD");
-                    bookRow.setStock(book_info[4] + " stock left");
+                    bookRow.setPrice(Double.parseDouble(book_info[3]));
+                    bookRow.setStock(Integer.parseInt(book_info[4]));
                     bookRow.setUrl(book_info[5]);
+                    bookRow.setTotal(0);
                     bookslist.add(bookRow);
                 }
             }
@@ -117,4 +113,6 @@ public class BookListActivity extends AppCompatActivity implements SearchView.On
         adapter.setFilter(newList);
         return false;
     }
+
+
 }
