@@ -5,7 +5,7 @@ package com.example.user.bookstore.BookDetails;
  */
 
 public class CommentRow {
-    private String name, comment, rating, url, date;
+    private String name, comment, rating, url, date, usefulness;
 
     public String getDate() {
 
@@ -49,5 +49,13 @@ public class CommentRow {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getUsefulness() {
+        return usefulness;
+    }
+
+    public void setUsefulness(String usefulness) {
+        this.usefulness = usefulness;
     }
 }

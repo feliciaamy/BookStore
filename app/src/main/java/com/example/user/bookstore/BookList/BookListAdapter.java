@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.example.user.bookstore.BookInformationActivity;
 import com.example.user.bookstore.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,6 +70,12 @@ public class BookListAdapter extends RecyclerView.Adapter<BooksList> {
 
     public void clearAdapter() {
         bookList.clear();
+        notifyDataSetChanged();
+    }
+
+    public void setFilter(List<BookRow> bookList) {
+        this.bookList = new ArrayList<>();
+        this.bookList.addAll(bookList);
         notifyDataSetChanged();
     }
 }

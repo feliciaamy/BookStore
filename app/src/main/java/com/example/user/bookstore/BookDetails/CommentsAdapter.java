@@ -54,7 +54,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentList> {
 
         holder.getLayoutPosition();
 
-        holder.name.setText(comment.getName());
+        holder.name.setText(comment.getName() + "   " + comment.getUsefulness() + "/5.0");
         holder.date.setText(comment.getDate());
         holder.comment.setText(comment.getComment());
         holder.rate.setRating(Float.parseFloat(comment.getRating()));

@@ -26,10 +26,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Register"
-            android:label="@string/title_activity_register" />
-        <activity android:name=".BookListActivity" />
+
+
+        <!-- this activity enables the search dialog to initiate searches
+             in the SearchableActivity -->
+        <activity android:name=".BookListActivity">
+            <!-- enable the search dialog to send searches to SearchableActivity -->
+            <meta-data
+                android:name="android.app.default_searchable"
+                android:value=".SearchableActivity" />
+        </activity>
+
+        <!--<activity-->
+        <!--android:name=".Register"-->
+        <!--android:label="@string/title_activity_register" />-->
+        <!--<activity android:name=".BookListActivity" />-->
         <activity
             android:name=".BookInformationActivity"
             android:label="@string/title_activity_book_information" />

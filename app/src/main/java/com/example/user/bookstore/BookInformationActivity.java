@@ -122,11 +122,12 @@ public class BookInformationActivity extends Activity {
             for (String book : booksString) {
                 CommentRow commentRow = new CommentRow();
                 String[] comment_info = book.split(";");
-                if (comment_info.length == 4) {
+                if (comment_info.length == 5) {
                     commentRow.setName(comment_info[0]);
                     commentRow.setDate(comment_info[1]);
                     commentRow.setRating(comment_info[2]);
                     commentRow.setComment(comment_info[3]);
+                    commentRow.setUsefulness(comment_info[4]);
                     commentsList.add(commentRow);
                 }
             }
