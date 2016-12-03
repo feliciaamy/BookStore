@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="nav_profile" type="id">profile</item>
+    <item name="nav_home" type="id">home</item>
+    <item name="nav_recommendation" type="id">recommendation</item>
+    <item name="nav_checkout" type="id">checkout</item>
+    <item name="nav_orderhistory" type="id">order_history</item>
+</resources>

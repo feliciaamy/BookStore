@@ -47,7 +47,7 @@ public class Register extends Activity {
         Log.i("Register", "Clicked");
 
         try {
-            Database database = new Database(this);
+            Database database = new Database();
             String result = database.execute(Action.REGISTER.toString(), fullname_str, username_str, password_str,
                     address_str, phone_str, creditCard_str).get();
             if (result.contains("Welcome")) {

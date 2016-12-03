@@ -14,7 +14,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_recommendation"
         android:label="@string/app_name"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
         <activity
@@ -30,7 +30,7 @@
 
         <!-- this activity enables the search dialog to initiate searches
              in the SearchableActivity -->
-        <activity android:name=".BookListActivity">
+        <activity android:name=".MainActivity">
             <!-- enable the search dialog to send searches to SearchableActivity -->
             <meta-data
                 android:name="android.app.default_searchable"
@@ -40,18 +40,25 @@
         <!--<activity-->
         <!--android:name=".Register"-->
         <!--android:label="@string/title_activity_register" />-->
-        <!--<activity android:name=".BookListActivity" />-->
+        <!--<activity android:name=".MainActivity" />-->
         <activity
-            android:name=".BookInformationActivity"
+            android:name=".BookDetails.CommentListActivity"
+            android:label="CommentListActivity" />
+        <activity
+            android:name=".BookDetails.BookInformationActivity"
             android:label="@string/title_activity_book_information" />
         <activity
             android:name=".BookDetails.CommentActivity"
             android:label="@string/title_activity_comment"
-            android:parentActivityName=".BookInformationActivity">
+            android:parentActivityName=".BookDetails.BookInformationActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.user.bookstore.BookInformationActivity" />
-        </activity>
+                android:value="com.example.user.bookstore.BookDetails.BookInformationActivity" />
+        </activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>

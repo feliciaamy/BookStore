@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/comment_blueprint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -60,6 +61,85 @@
         android:layout_alignLeft="@+id/date"
         android:layout_alignStart="@+id/date"
         android:layout_below="@+id/date"
+        android:layout_toLeftOf="@+id/likeButton"
+        android:layout_toStartOf="@+id/likeButton"
         android:padding="8dp"
         android:text="TextView" />
+
+    <TextView
+        android:id="@+id/soso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/sosoButton"
+        android:layout_alignStart="@+id/sosoButton"
+        android:layout_below="@+id/unlikeButton"
+        android:padding="5dp"
+        android:text="TextView"
+        android:textSize="7dp" />
+
+    <TextView
+        android:id="@+id/unlike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/unlikeButton"
+        android:layout_alignStart="@+id/unlikeButton"
+        android:layout_below="@+id/unlikeButton"
+        android:padding="5dp"
+        android:text="TextView"
+        android:textSize="7dp" />
+
+    <TextView
+        android:id="@+id/like"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/likeButton"
+        android:layout_alignStart="@+id/likeButton"
+        android:layout_below="@+id/likeButton"
+        android:padding="5dp"
+        android:text="TextView"
+        android:textSize="7dp" />
+
+    <ImageButton
+        android:id="@+id/likeButton"
+        style="@style/Widget.AppCompat.ImageButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rate_comment"
+        android:layout_toLeftOf="@+id/sosoButton"
+        android:layout_toStartOf="@+id/sosoButton"
+        android:background="@null"
+        android:padding="10dp"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:visibility="visible"
+        app:srcCompat="@drawable/like" />
+
+    <ImageButton
+        android:id="@+id/sosoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rate_comment"
+        android:layout_toLeftOf="@+id/unlikeButton"
+        android:layout_toStartOf="@+id/unlikeButton"
+        android:background="@null"
+        android:padding="10dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_soso" />
+
+    <ImageButton
+        android:id="@+id/unlikeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/rate_comment"
+        android:background="@null"
+        android:padding="10dp"
+        android:scaleX="0.5"
+        android:scaleY="0.5"
+        android:visibility="visible"
+        app:srcCompat="@drawable/ic_unlike" />
+
 </RelativeLayout>

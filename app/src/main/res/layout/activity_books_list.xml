@@ -1,18 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?><!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_books_list"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:orientation="vertical"
-    tools:context="com.example.user.bookstore.BookList.BooksList">
+    tools:context="com.example.user.bookstore.BookList.BooksList"
+    tools:openDrawer="start">
 
     <include layout="@layout/toolbar_layout"></include>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/booksContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="5dp" />
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/booksContainer"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:padding="5dp"-->
+    <!--android:layout_marginTop="?attr/actionBarSize" />-->
 
-</LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/drawer_layout"
+        app:menu="@menu/drawer_menu" />
+
+    <!--</LinearLayout>-->
+</android.support.v4.widget.DrawerLayout>

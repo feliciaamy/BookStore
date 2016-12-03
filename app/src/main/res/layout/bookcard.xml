@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/author"
-            android:layout_width="wrap_content"
+            android:layout_width="210dp"
             android:layout_height="wrap_content"
             android:layout_above="@+id/title"
             android:layout_marginLeft="15dp"
@@ -48,7 +48,7 @@
             android:id="@+id/add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="315dp"
+            android:layout_marginLeft="305dp"
             android:layout_marginTop="50dp"
             android:background="@null"
             card_view:srcCompat="@drawable/ic_plus" />
@@ -57,7 +57,7 @@
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="290dp"
+            android:layout_marginLeft="280dp"
             android:layout_marginTop="57dp"
             android:numeric="integer"
             android:text="0"
@@ -67,7 +67,7 @@
             android:id="@+id/minus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="250dp"
+            android:layout_marginLeft="240dp"
             android:layout_marginTop="50dp"
             android:background="@null"
             card_view:srcCompat="@drawable/ic_minus" />
@@ -85,7 +85,7 @@
             android:id="@+id/price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="255dp"
+            android:layout_marginLeft="245dp"
             android:layout_marginTop="120dp"
             android:text="TextView"
             android:textSize="16sp" />
@@ -94,7 +94,7 @@
             android:id="@+id/stock"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="255dp"
+            android:layout_marginLeft="245dp"
             android:layout_marginTop="95dp"
             android:text="TextView" />
 
@@ -104,7 +104,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="130dp"
-            android:text="Learn more..." />
+            android:clickable="true"
+            android:text="Learn more..."
+            android:textColor="?android:attr/colorAccent" />
 
     </android.support.v7.widget.CardView>
 </RelativeLayout>

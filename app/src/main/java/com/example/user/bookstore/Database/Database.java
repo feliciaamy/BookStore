@@ -1,6 +1,5 @@
 package com.example.user.bookstore.Database;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -23,33 +22,27 @@ import java.util.Calendar;
  */
 
 public class Database extends AsyncTask<String, Void, String> {
-    Context context;
-    //    AlertDialog alertDialog;
-    private String LOGIN_PHP = "http://www.indobookstore.org/login.php";
-    private String REGISTER_PHP = "http://www.indobookstore.org/register.php";
-    private String GETBOOKS = "http://www.indobookstore.org/getbooks.php";
-    private String GETINFO = "http://www.indobookstore.org/getbookinfo.php";
-    private String GIVENFEEDBACK = "http://www.indobookstore.org/givenfeedback.php";
-    private String INPUTFEEDBACK = "http://www.indobookstore.org/inputfeedback.php";
-    private String GETFEEDBACK = "http://www.indobookstore.org/getfeedback.php";
-    private String GETAVERAGERATE = "http://www.indobookstore.org/getavgrate.php";
-    private String GETBOOKSFILTERED = "http://www.indobookstore.org/getbooksfilter.php";
-    private String PLACEORDER = "http://www.indobookstore.org/placeorder.php";
-    private String ORDERBOOK = "http://www.indobookstore.org/orderbook.php";
+    final private String LOGIN_PHP = "http://www.indobookstore.org/login.php";
+    final private String REGISTER_PHP = "http://www.indobookstore.org/register.php";
+    final private String GETBOOKS = "http://www.indobookstore.org/getbooks.php";
+    final private String GETINFO = "http://www.indobookstore.org/getbookinfo.php";
+    final private String GIVENFEEDBACK = "http://www.indobookstore.org/givenfeedback.php";
+    final private String INPUTFEEDBACK = "http://www.indobookstore.org/inputfeedback.php";
+    final private String GETFEEDBACK = "http://www.indobookstore.org/getfeedback.php";
+    final private String GETAVERAGERATE = "http://www.indobookstore.org/getavgrate.php";
+    final private String GETBOOKSFILTERED = "http://www.indobookstore.org/getbooksfilter.php";
+    final private String PLACEORDER = "http://www.indobookstore.org/placeorder.php";
+    final private String UPDATEUSEFULNESS = "http://www.indobookstore.org/updateusefulness.php";
+    final private String INSERTUSEFULNESS = "http://www.indobookstore.org/insertusefulness.php";
+    final private String DELETEUSEFULNESS = "http://www.indobookstore.org/deleteusefulness.php";
+    final private String GETRECOMMENDATION = "http://www.indobookstore.org/recommendation.php";
+    final private String GETPROFILE = "http://www.indobookstore.org/getprofile.php";
     private HttpURLConnection httpURLConnection;
     private OutputStream outputStream;
     private BufferedWriter bufferedWriter;
     private Action action;
-//    public AsyncResponse delegate = null;
 
-//
-//    public interface AsyncResponse {
-//        void processFinish(String output, Context context);
-//    }
-
-    public Database(Context context) {
-//        this.delegate = delegate;
-        this.context = context;
+    public Database() {
     }
 
     @Override
@@ -67,15 +60,25 @@ public class Database extends AsyncTask<String, Void, String> {
                 data_string = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&" +
                         URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8");
 
-            } else if (type.equals(Action.REGISTER.toString())) {
-                action = Action.REGISTER;
+            } else if (type.equals(Action.GETPROFILE.toString())) {
+                action = Action.GETPROFILE;
+                url = new URL(GETPROFILE);
+                String username = args[1];
+                data_string = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+            } else if (type.equals(Action.REGISTER.toString()) || type.equals(Action.UPDATEPROFILE.toString())) {
+                if (type.equals(Action.REGISTER.toString())) {
+                    action = Action.REGISTER;
+                    url = new URL(REGISTER_PHP);
+                } else {
+                    action = Action.UPDATEPROFILE;
+                    url = new URL(UPDATEUSEFULNESS);
+                }
                 String fullname = args[1];
                 String username = args[2];
                 String password = args[3];
                 String address = args[4];
                 String phone = args[5];
                 String creditCard = args[6];
-                url = new URL(REGISTER_PHP);
                 data_string = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&" +
                         URLEncoder.encode("password", "UTF-8") + "=" + URLEncoder.encode(password, "UTF-8") + "&" +
                         URLEncoder.encode("fullname", "UTF-8") + "=" + URLEncoder.encode(fullname, "UTF-8") + "&" +
@@ -123,7 +126,9 @@ public class Database extends AsyncTask<String, Void, String> {
                 action = Action.GETFEEDBACK;
                 url = new URL(GETFEEDBACK);
                 String isbn13 = args[1];
-                data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8");
+                String username = args[2];
+                data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8") + "&" +
+                        URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
             } else if (type.equals(Action.GETBOOKSFILTERED.toString())) {
                 action = Action.GETBOOKSFILTERED;
                 url = new URL(GETBOOKSFILTERED);
@@ -138,21 +143,45 @@ public class Database extends AsyncTask<String, Void, String> {
                 // THIS WILL RETURN YOU THE ORDER_ID
                 String username = args[1];
                 String status = args[2];
+                String shoppingList = args[3];
                 Calendar c = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss a");
                 String date = df.format(c.getTime());
+                Log.d("CHECKOUT DATABASE", username + ";" + status + ";" + date + ";" + shoppingList);
                 data_string = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8") + "&" +
                         URLEncoder.encode("status", "UTF-8") + "=" + URLEncoder.encode(status, "UTF-8") + "&" +
-                        URLEncoder.encode("date", "UTF-8") + "=" + URLEncoder.encode(date, "UTF-8");
-            } else {
-                action = Action.ORDERBOOK;
-                url = new URL(ORDERBOOK);
+                        URLEncoder.encode("date", "UTF-8") + "=" + URLEncoder.encode(date, "UTF-8") + "&" +
+                        URLEncoder.encode("shoppinglist", "UTF-8") + "=" + URLEncoder.encode(shoppingList, "UTF-8");
+            } else if (type.equals(Action.DELETEUSEFULNESS.toString())) {
+                action = Action.DELETEUSEFULNESS;
+                url = new URL(DELETEUSEFULNESS);
                 String isbn13 = args[1];
-                String copies = args[2];
-                String order_id = args[3];
+                String rating_user = args[2];
+                String feedback_user = args[3];
                 data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8") + "&" +
-                        URLEncoder.encode("copies", "UTF-8") + "=" + URLEncoder.encode(copies, "UTF-8") + "&" +
-                        URLEncoder.encode("order_id", "UTF-8") + "=" + URLEncoder.encode(order_id, "UTF-8");
+                        URLEncoder.encode("rating_user", "UTF-8") + "=" + URLEncoder.encode(rating_user, "UTF-8") + "&" +
+                        URLEncoder.encode("feedback_user", "UTF-8") + "=" + URLEncoder.encode(feedback_user, "UTF-8");
+            } else if (type.equals(Action.GETRECOMMENDATION)) {
+                action = Action.GETRECOMMENDATION;
+                url = new URL(GETRECOMMENDATION);
+                String username = args[1];
+                data_string = URLEncoder.encode("username", "UTF-8") + "=" + URLEncoder.encode(username, "UTF-8");
+            } else {
+                if (type.equals(Action.UPDATEUSEFULNESS.toString())) {
+                    action = Action.UPDATEUSEFULNESS;
+                    url = new URL(UPDATEUSEFULNESS);
+                } else {
+                    action = Action.INSERTUSEFULNESS;
+                    url = new URL(INSERTUSEFULNESS);
+                }
+                String isbn13 = args[1];
+                String rating_user = args[2];
+                String feedback_user = args[3];
+                String rate = args[4];
+                data_string = URLEncoder.encode("isbn13", "UTF-8") + "=" + URLEncoder.encode(isbn13, "UTF-8") + "&" +
+                        URLEncoder.encode("rating_user", "UTF-8") + "=" + URLEncoder.encode(rating_user, "UTF-8") + "&" +
+                        URLEncoder.encode("feedback_user", "UTF-8") + "=" + URLEncoder.encode(feedback_user, "UTF-8") + "&" +
+                        URLEncoder.encode("rate", "UTF-8") + "=" + URLEncoder.encode(rate, "UTF-8");
             }
 
             connectHTTP(url);

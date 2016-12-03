@@ -10,7 +10,6 @@ import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
-import com.example.user.bookstore.BookInformationActivity;
 import com.example.user.bookstore.Database.Action;
 import com.example.user.bookstore.Database.Database;
 import com.example.user.bookstore.Login;
@@ -52,7 +51,7 @@ public class CommentActivity extends Activity {
     public void onSubmitFeedback(View v) {
         try {
             String remarks = comment.getText().toString();
-            Database database = new Database(this);
+            Database database = new Database();
             String result = database.execute(Action.INPUTFEEDBACK.toString(), ISBN13, Login.USERNAME, remarks, score).get();
 
             Toast.makeText(getApplicationContext(), "Feedback submitted!", Toast.LENGTH_SHORT).show();

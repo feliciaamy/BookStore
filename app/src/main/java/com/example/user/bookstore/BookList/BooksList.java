@@ -10,12 +10,13 @@ import com.example.user.bookstore.R;
 
 public class BooksList extends RecyclerView.ViewHolder {
 
-    protected TextView title, author, publisher, price, stock, url, total;
+    protected TextView title, author, publisher, price, stock, url, total, learnmore;
     protected ImageButton plus, minus;
     protected RelativeLayout blueprint;
 
     public BooksList(View itemView) {
         super(itemView);
+        this.learnmore = (TextView) itemView.findViewById(R.id.learn_more);
         this.title = (TextView) itemView.findViewById(R.id.title);
         this.author = (TextView) itemView.findViewById(R.id.author);
         this.publisher = (TextView) itemView.findViewById(R.id.publisher);

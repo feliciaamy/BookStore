@@ -37,13 +37,13 @@ public class Login extends Activity {
             String username_str = username.getText().toString();
             String password_str = password.getText().toString();
 
-            Database database = new Database(this);
+            Database database = new Database();
             String result = database.execute(Action.LOGIN.toString(), username_str, password_str).get();
             Toast.makeText(getApplicationContext(), result, Toast.LENGTH_LONG).show();
             if (result.contains("Welcome")) {
                 loginSucceed = true;
-                Log.d("Create Intent", "Go to BookListActivity");
-                Intent intent = new Intent(this, BookListActivity.class);
+                Log.d("Create Intent", "Go to MainActivity");
+                Intent intent = new Intent(this, MainActivity.class);
                 intent.putExtra("FILTER", "*");
                 startActivity(intent);
                 USERNAME = username_str;

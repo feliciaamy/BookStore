@@ -3,29 +3,27 @@ package com.example.user.bookstore.BookList;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.user.bookstore.BookInformationActivity;
+import com.example.user.bookstore.BookDetails.BookInformationActivity;
+import com.example.user.bookstore.MainActivity;
 import com.example.user.bookstore.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by user on 23/11/16.
  */
 
 public class BookListAdapter extends RecyclerView.Adapter<BooksList> {
-    private List<BookRow> bookList;
     private Context context;
     private int focusedItem = 0;
-
-    private Map<String, Integer> shoppingBag = new HashMap<String, Integer>();
+    private List<BookRow> bookList;
+//    private Map<String, Integer> shoppingBag = new HashMap<String, Integer>();
 
     public BookListAdapter(Context context, List<BookRow> bookList) {
         this.context = context;
@@ -37,12 +35,14 @@ public class BookListAdapter extends RecyclerView.Adapter<BooksList> {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.bookcard, null);
         final BooksList holder = new BooksList(v);
 
-        holder.blueprint.setOnClickListener(new View.OnClickListener() {
+        holder.learnmore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 // Url = isbn13
-                TextView url = (TextView) view.findViewById(R.id.url);
-                String isbn13 = url.getText().toString();
+                BookRow book = bookList.get(holder.getLayoutPosition());
+                String isbn13 = book.getUrl();
+//                TextView url = (TextView) view.findViewById(R.id.url);
+//                String isbn13 = url.getText().toString();
                 Intent intent = new Intent(context, BookInformationActivity.class);
                 intent.putExtra("isbn13", isbn13);
                 context.startActivity(intent);
@@ -52,13 +52,15 @@ public class BookListAdapter extends RecyclerView.Adapter<BooksList> {
         holder.plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String isbn13 = holder.url.getText().toString();
-                int total = Integer.parseInt(holder.total.getText().toString());
-                String stock_string = holder.stock.getText().toString().replace(" stock left", "");
-                int stock = Integer.parseInt(stock_string);
+//                int position = MainActivity.bookList.indexOf(holder.getLayoutPosition());
+                BookRow book = bookList.get(holder.getLayoutPosition());
+                String isbn13 = book.getUrl();
+                int total = book.getTotal();
+                int stock = book.getStock();
 
                 if (stock > total) {
-                    updateShoppingBag(isbn13, 1);
+                    book.setTotal(total + 1);
+                    updateShoppingBag(book, 1);
                     holder.total.setText((total + 1) + "");
                 }
 
@@ -68,13 +70,12 @@ public class BookListAdapter extends RecyclerView.Adapter<BooksList> {
         holder.minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String isbn13 = holder.url.getText().toString();
-                int total = Integer.parseInt(holder.total.getText().toString());
-                String stock_string = holder.stock.getText().toString().replace(" stock left", "");
-                int stock = Integer.parseInt(stock_string);
-
+                BookRow book = bookList.get(holder.getLayoutPosition());
+                String isbn13 = book.getUrl();
+                int total = book.getTotal();
                 if (total > 0) {
-                    updateShoppingBag(isbn13, -1);
+                    book.setTotal(total - 1);
+                    updateShoppingBag(book, -1);
                     holder.total.setText((total - 1) + "");
                 }
             }
@@ -88,27 +89,32 @@ public class BookListAdapter extends RecyclerView.Adapter<BooksList> {
         holder.itemView.setSelected(focusedItem == position);
 
         holder.getLayoutPosition();
-
-        holder.title.setText(book.getTitle());
+        String title = book.getTitle();
+        String author = book.getAuthor();
+        if (title.length() > 40) {
+            title.substring(0, 35);
+            title = title + "...";
+        } else {
+            Log.d("TITLE", title + " " + title.length());
+        }
+        if (author.length() > 30) {
+            author.substring(0, 25);
+            author = title + "...";
+        } else {
+            Log.d("AUTHOR", author + " " + author.length());
+        }
+        holder.title.setText(title);
         holder.author.setText(book.getAuthor());
         holder.publisher.setText(book.getPublisher());
         holder.price.setText(book.getPrice() + " USD");
         holder.stock.setText(book.getStock() + " stock left");
         holder.total.setText(book.getTotal() + "");
         holder.url.setText(book.getUrl());
-
-//        if (book.getStock() <= book.getTotal()) {
-//            holder.plus.setEnabled(false);
-//        }
-//        if (book.getStock() <= 0) {
-//            holder.minus.setEnabled(false);
-//            holder.minus.
-//        }
     }
 
     @Override
     public int getItemCount() {
-        return (null != bookList ? bookList.size() : 0);
+        return (null != MainActivity.bookList ? bookList.size() : 0);
     }
 
     public void clearAdapter() {
@@ -122,12 +128,16 @@ public class BookListAdapter extends RecyclerView.Adapter<BooksList> {
         notifyDataSetChanged();
     }
 
-    public void updateShoppingBag(String isbn13, int total) {
-        if (shoppingBag.containsKey(isbn13)) {
-            int totalSoFar = shoppingBag.get(isbn13);
-            shoppingBag.put(isbn13, totalSoFar + total);
+    public void updateShoppingBag(BookRow book, int total) {
+        if (MainActivity.shoppingBag.containsKey(book)) {
+            int totalSoFar = MainActivity.shoppingBag.get(book);
+            MainActivity.shoppingBag.put(book, totalSoFar + total);
+            if (totalSoFar + total == 0) {
+                MainActivity.shoppingBag.remove(book);
+            }
         } else {
-            shoppingBag.put(isbn13, total);
+            MainActivity.shoppingBag.put(book, total);
         }
+        Log.d("UPDATE SHOPPING BAG", MainActivity.shoppingBag.toString());
     }
 }
